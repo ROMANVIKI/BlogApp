@@ -3,6 +3,7 @@ from django.db.models.query import QuerySet
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
+from taggit.managers import TaggableManager
 # Create your models here.
 
 class PublishedManager(models.Manager):
@@ -18,6 +19,7 @@ class Post(models.Model):
         DRAFT = 'DF', 'Draft'
         PUBLISHED = 'PB', 'Published'
 
+    tags = TaggableManager()
 
     title = models.CharField(max_length=250)
     slug = models.SlugField(max_length=250, unique_for_date='publish')
@@ -58,6 +60,8 @@ class Comment(models.Model):
     body = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     active = models.BooleanField(default=True)
+    updated = models.DateTimeField(auto_now=True)
+    
 
     class Meta:
         ordering = ['created']
