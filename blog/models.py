@@ -7,7 +7,7 @@ from taggit.managers import TaggableManager
 # Create your models here.
 
 class PublishedManager(models.Manager):
-    def get_queryset(self) -> QuerySet:
+    def get_queryset(self):
         return super().get_queryset().filter(status=Post.Status.PUBLISHED)
 
 
@@ -66,9 +66,9 @@ class Comment(models.Model):
 
     class Meta:
         ordering = ['created']
-        indexes = [
-            models.Index(fields=['created']),
-        ]
+        # indexes = [
+        #     models.Index(fields=['created']),
+        # ]
 
     def __str__(self):
         return f'Comment by {self.name} on {self.post}'
